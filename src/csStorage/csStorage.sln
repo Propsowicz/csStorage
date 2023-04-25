@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csStorage", "csStorage\csStorage.csproj", "{1C956F8D-F298-4E0E-B8EA-1AD3FA3864A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csStorage.IntegrationTest", "csStorage.IntegrationTest\csStorage.IntegrationTest.csproj", "{8772F1DF-12C7-4A1B-A0B9-407CD87C32F9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C956F8D-F298-4E0E-B8EA-1AD3FA3864A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C956F8D-F298-4E0E-B8EA-1AD3FA3864A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C956F8D-F298-4E0E-B8EA-1AD3FA3864A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C956F8D-F298-4E0E-B8EA-1AD3FA3864A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8772F1DF-12C7-4A1B-A0B9-407CD87C32F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8772F1DF-12C7-4A1B-A0B9-407CD87C32F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8772F1DF-12C7-4A1B-A0B9-407CD87C32F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8772F1DF-12C7-4A1B-A0B9-407CD87C32F9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {54642609-E9C0-4015-BCAD-5CE2E2166F7E}
+	EndGlobalSection
+EndGlobal
