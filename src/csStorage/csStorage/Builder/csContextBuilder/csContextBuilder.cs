@@ -1,12 +1,19 @@
-﻿namespace csStorage.Builder.csContextBuilder;
+﻿using csStorage.Base.csEntityBaseModel;
+
+namespace csStorage.Builder.csContextBuilder;
 
 public partial class csContextBuilder<T>
 {
-    private T Entity { get; set; } = default!;
+    #region Properties    
+    private object Entity { get; set; } = default!;
+
+    private string csKeyValue { get; set; }
 
     public string StoragePath { get; set; } = default!;
 
-	public csContextBuilder()
+#endregion
+
+    public csContextBuilder()
 	{
         CreateCsStoragePath();
     }
