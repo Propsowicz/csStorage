@@ -13,7 +13,7 @@ namespace csStorage.IntegrationTest.Shared
         public bool IsAdmin { get; set; }
     }
 
-    public class UserEntity2Mock : csEntityBaseModel<UserEntity2Mock>
+    public class UserEntityStringKeyMock : csEntityBaseModel<UserEntityStringKeyMock>
     {
         [csKeyValue]
         public string? UserName { get; set; }
@@ -23,7 +23,27 @@ namespace csStorage.IntegrationTest.Shared
         public bool IsAdmin { get; set; }
     }
 
-    public class InvalidUserEntityMock
+    public class UserEntityGuidKeyMock : csEntityBaseModel<UserEntityGuidKeyMock>
+    {
+        [csKeyValue]
+        public Guid? UserName { get; set; }
+
+        public int Age { get; set; }
+
+        public bool IsAdmin { get; set; }
+    }
+
+    public class UserEntityIntKeyMock : csEntityBaseModel<UserEntityIntKeyMock>
+    {
+        public string? UserName { get; set; }
+
+        [csKeyValue]
+        public int Age { get; set; }
+
+        public bool IsAdmin { get; set; }
+    }
+
+    public class InvalidUserEntityMock : csEntityBaseModel<InvalidUserEntityMock>
     {
         public string? UserName { get; set; }
 

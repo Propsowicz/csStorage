@@ -2,37 +2,13 @@
 using csStorage.Builder.csContextBuilder;
 using FluentAssertions;
 using AutoFixture.Xunit2;
+using csStorage.Exceptions;
 
 namespace csStorage.IntegrationTest.Builder.csContext;
 
 public partial class csContextBuilderTests
 {
-    //[Theory, AutoData]
-    //public void GivenNotInheritedEntityModel_WhenAdd_ThenThrowAnException(
-    //    string username,
-    //    int age,
-    //    bool isAdmin
-    //)
-    //{
-    //    // given
-    //    var userEntityMock = new InvalidUserEntityMock
-    //    {
-    //        UserName = username,
-    //        Age = age,
-    //        IsAdmin = isAdmin
-    //    };
-    //    var contextBuilder = new csContextBuilder<InvalidUserEntityMock>();
-
-    //    // when
-    //    Action act = () =>
-    //    {
-    //        contextBuilder.Add(userEntityMock);
-    //    };
-
-    //    // then
-    //    act.Should().Throw<Exception>();
-    //}
-
+    [TestAfter]
     [Fact]
     public void GivenNullEntityModel_WhenAdd_ThenThrowAnException()
     {
@@ -50,6 +26,34 @@ public partial class csContextBuilderTests
         act.Should().Throw<Exception>();
     }
 
+    [TestAfter]
+    [Theory, AutoData]
+    public void GivenInvalidEntityModel_WhenAdd_ThenCreateOneRecord(
+        string username,
+        int age,
+        bool isAdmin
+    )
+    {
+        // given
+        var userEntityMock = new InvalidUserEntityMock
+        {
+            UserName = username,
+            Age = age,
+            IsAdmin = isAdmin
+        };
+        var contextBuilder = new csContextBuilder<InvalidUserEntityMock>();
+
+        // when
+        Action act = () =>
+        {
+            contextBuilder.Add(userEntityMock);
+        };
+
+        // then
+        act.Should().Throw<CsKeyValueAttributeHasNotBeenSetException>();
+    }
+
+    [TestAfter]
     [Theory, AutoData]
     public void GivenOkEntityModel_WhenAdd_ThenCreateOneRecord(
         string username,
@@ -79,6 +83,7 @@ public partial class csContextBuilderTests
         contextBuilder.Get().Last().IsAdmin.Should().Be(isAdmin);
     }
 
+    [TestAfter]
     [Theory, AutoData]
     public void GivenTwoEntitiesWithSameKeyModel_WhenAdd_ThenCreateOnlyOneRecord(
         string username,
@@ -87,19 +92,19 @@ public partial class csContextBuilderTests
     )
     {
         // given
-        var userEntityMock = new UserEntity2Mock
+        var userEntityMock = new UserEntityMock
         {
             UserName = username,
             Age = age,
             IsAdmin = isAdmin
         };
-        var userEntityMock2 = new UserEntity2Mock
+        var userEntityMock2 = new UserEntityMock
         {
             UserName = username,
             Age = age + 5,
             IsAdmin = !isAdmin
         };
-        var contextBuilder = new csContextBuilder<UserEntity2Mock>();
+        var contextBuilder = new csContextBuilder<UserEntityMock>();
         var oldNumberOfEntieties = contextBuilder.Get().Count();
         contextBuilder.Add(userEntityMock);
 

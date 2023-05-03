@@ -74,7 +74,7 @@ public partial class csContextBuilder<T>
         }
         catch (InvalidCastException)
         {
-            throw new CantConvertObjectToGenericClass(); 
+            throw new CantConvertObjectToGenericClassException(); 
         }
     }
 
@@ -85,7 +85,7 @@ public partial class csContextBuilder<T>
         var isKeyUnique = !listOfcsKeyValues.Any(x => x.csKeyValue == this.csKeyValue);
         if (!isKeyUnique)
         {
-            throw new ThisKeyValueAlreadyExists();
+            throw new ThisKeyValueAlreadyExistsException();
         }
         return isKeyUnique;
     }
@@ -138,8 +138,13 @@ public partial class csContextBuilder<T>
                         }
                     }
                 }
-            }
+            }            
         }
-        catch { }        
+        catch { }
+
+        if (string.IsNullOrEmpty(this.csKeyValue))
+        {
+            throw new CsKeyValueAttributeHasNotBeenSetException();
+        }
     }       
 }
