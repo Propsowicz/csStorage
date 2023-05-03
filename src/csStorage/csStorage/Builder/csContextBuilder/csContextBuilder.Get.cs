@@ -9,52 +9,45 @@ public partial class csContextBuilder<T>
 {
     public IEnumerable<T> Get()
     {
-        return GetAllRecords();
+        return this.GetAllRecords();
     }
 
     public T Get(string csKeyValue)
     {
-        var allRecords = this.Get();
-        List<csEntityBaseModel<T>> baseModelList = new();
+        var entityBaseModelList = this.GetAllEntityBaseModelRecords();
 
-        foreach (var record in allRecords)
-        {
-            baseModelList.Add(record as csEntityBaseModel<T> 
-                ?? throw new Exception("Couldn't convert to csEntityBaseModel"));                      
-        }
-
-        return ConvertObjectToGenericT(baseModelList.Where(x => x.csKeyValue == csKeyValue).FirstOrDefault() 
+        return this.ConvertObjectToGenericT(entityBaseModelList.Where(x => x.csKeyValue == csKeyValue).FirstOrDefault() 
             ?? throw new EntityDoesntExistsException());            
     }
 
     public T Get(Guid csKeyValue)
     {
-        var allRecords = this.Get();
-        List<csEntityBaseModel<T>> baseModelList = new();
+        var entityBaseModelList = this.GetAllEntityBaseModelRecords();
 
-        foreach (var record in allRecords)
-        {
-            baseModelList.Add(record as csEntityBaseModel<T>
-                ?? throw new Exception("Couldn't convert to csEntityBaseModel"));
-        }
-
-        return ConvertObjectToGenericT(baseModelList.Where(x => x.csKeyValue == csKeyValue.ToString()).FirstOrDefault()
+        return this.ConvertObjectToGenericT(entityBaseModelList.Where(x => x.csKeyValue == csKeyValue.ToString()).FirstOrDefault()
             ?? throw new EntityDoesntExistsException());
     }
 
     public T Get(int csKeyValue)
     {
+        var entityBaseModelList = this.GetAllEntityBaseModelRecords();
+
+        return this.ConvertObjectToGenericT(entityBaseModelList.Where(x => x.csKeyValue == csKeyValue.ToString()).FirstOrDefault()
+            ?? throw new EntityDoesntExistsException());
+    }
+
+    private List<csEntityBaseModel<T>> GetAllEntityBaseModelRecords()
+    {
         var allRecords = this.Get();
-        List<csEntityBaseModel<T>> baseModelList = new();
+        List<csEntityBaseModel<T>> entityBaseModelList = new();
 
         foreach (var record in allRecords)
         {
-            baseModelList.Add(record as csEntityBaseModel<T>
+            entityBaseModelList.Add(record as csEntityBaseModel<T>
                 ?? throw new Exception("Couldn't convert to csEntityBaseModel"));
         }
 
-        return ConvertObjectToGenericT(baseModelList.Where(x => x.csKeyValue == csKeyValue.ToString()).FirstOrDefault()
-            ?? throw new EntityDoesntExistsException());
+        return entityBaseModelList;
     }
 
     private IEnumerable<T> GetAllRecords()

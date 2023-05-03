@@ -11,6 +11,8 @@ public partial class csContextBuilder<T>
 
     public string StoragePath { get; set; } = default!;
 
+    public string DirectoryPath { get; set; } = default!;
+
 #endregion
 
     public csContextBuilder()
@@ -20,13 +22,13 @@ public partial class csContextBuilder<T>
 
     private void CreateCsStoragePath()
     {
-        var directoryPath = AppDomain.CurrentDomain.BaseDirectory + $"\\csStorage";
+        this.DirectoryPath = AppDomain.CurrentDomain.BaseDirectory + $"\\csStorage";
 
-        if (!Directory.Exists(directoryPath))
+        if (!Directory.Exists(this.DirectoryPath))
         {
-            Directory.CreateDirectory(directoryPath);
+            Directory.CreateDirectory(this.DirectoryPath);
         }
 
-        StoragePath = directoryPath + $"\\{typeof(T).Name}.csv";
+        this.StoragePath = this.DirectoryPath + $"\\{typeof(T).Name}.csv";
     }
 }
