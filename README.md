@@ -52,5 +52,11 @@ Then You can perform CRUD operations using ContextBuilder<T> methods:
     contextBuilder.Delete(person);
 ```
 
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
+Please make sure to create tests for new features or bug fixes.
 
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
