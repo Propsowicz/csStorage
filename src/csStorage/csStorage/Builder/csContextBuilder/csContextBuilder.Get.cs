@@ -1,6 +1,4 @@
-﻿using csStorage.Exceptions;
-
-namespace csStorage.Builder.csContextBuilder;
+﻿namespace csStorage.Builder.csContextBuilder;
 
 public partial class csContextBuilder<T>
 {
@@ -18,7 +16,6 @@ public partial class csContextBuilder<T>
     /// </summary>
     /// <param name="csKey"></param>
     /// <returns>Entity</returns>
-    /// <exception cref="EntityDoesntExistsException"></exception>
     public T Get(string csKey)
     {
         return this.GetRecordByKey(csKey);       
@@ -29,7 +26,6 @@ public partial class csContextBuilder<T>
     /// </summary>
     /// <param name="csKey"></param>
     /// <returns>Entity</returns>
-    /// <exception cref="EntityDoesntExistsException"></exception>
     public T Get(Guid csKey)
     {
         return this.GetRecordByKey(csKey.ToString());
@@ -40,7 +36,6 @@ public partial class csContextBuilder<T>
     /// </summary>
     /// <param name="csKey"></param>
     /// <returns>Entity</returns>
-    /// <exception cref="EntityDoesntExistsException"></exception>
     public T Get(int csKey)
     {
         return this.GetRecordByKey(csKey.ToString());
@@ -51,7 +46,6 @@ public partial class csContextBuilder<T>
     /// </summary>
     /// <param name="csKey"></param>
     /// <returns>Entity</returns>
-    /// <exception cref="EntityDoesntExistsException"></exception>
     public T Get(DateTime csKey)
     {
         return this.GetRecordByKey(csKey.ToString());
