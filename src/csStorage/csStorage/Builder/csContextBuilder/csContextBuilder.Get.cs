@@ -21,10 +21,7 @@ public partial class csContextBuilder<T>
     /// <exception cref="EntityDoesntExistsException"></exception>
     public T Get(string csKey)
     {
-        var entityBaseModelList = this.ConvertGenericListToEntityBaseModelList(this.GetRecords());
-
-        return this.ConvertObjectToGenericT(entityBaseModelList.Where(x => x.csKey == csKey).FirstOrDefault() 
-            ?? throw new EntityDoesntExistsException());            
+        return this.GetRecordByKey(csKey);       
     }
 
     /// <summary>
@@ -35,10 +32,7 @@ public partial class csContextBuilder<T>
     /// <exception cref="EntityDoesntExistsException"></exception>
     public T Get(Guid csKey)
     {
-        var entityBaseModelList = this.ConvertGenericListToEntityBaseModelList(this.GetRecords());
-
-        return this.ConvertObjectToGenericT(entityBaseModelList.Where(x => x.csKey == csKey.ToString()).FirstOrDefault()
-            ?? throw new EntityDoesntExistsException());
+        return this.GetRecordByKey(csKey.ToString());
     }
 
     /// <summary>
@@ -49,10 +43,7 @@ public partial class csContextBuilder<T>
     /// <exception cref="EntityDoesntExistsException"></exception>
     public T Get(int csKey)
     {
-        var entityBaseModelList = this.ConvertGenericListToEntityBaseModelList(this.GetRecords());
-
-        return this.ConvertObjectToGenericT(entityBaseModelList.Where(x => x.csKey == csKey.ToString()).FirstOrDefault()
-            ?? throw new EntityDoesntExistsException());
+        return this.GetRecordByKey(csKey.ToString());
     }
 
     /// <summary>
@@ -63,9 +54,6 @@ public partial class csContextBuilder<T>
     /// <exception cref="EntityDoesntExistsException"></exception>
     public T Get(DateTime csKey)
     {
-        var entityBaseModelList = this.ConvertGenericListToEntityBaseModelList(this.GetRecords());
-
-        return this.ConvertObjectToGenericT(entityBaseModelList.Where(x => x.csKey == csKey.ToString()).FirstOrDefault()
-            ?? throw new EntityDoesntExistsException());
+        return this.GetRecordByKey(csKey.ToString());
     }
 }

@@ -70,5 +70,23 @@ public partial class csContextBuilderTests
 
         // then
         act.Should().Throw<EntityDoesntExistsException>();
-    }    
+    }
+
+    [TestAfter]
+    [Fact]
+    public void GivenNotExistingKey_WhenDelete_ThenThrowAnException()
+    {
+        // given        
+        var contextBuilder = new csContextBuilder<UserEntityMock>();
+        string usernameMock = "test";
+
+        // when
+        Action act = () =>
+        {
+            contextBuilder.Delete(usernameMock);
+        };
+
+        // then        
+        act.Should().Throw<EntityDoesntExistsException>();
+    }
 }

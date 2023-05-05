@@ -11,7 +11,7 @@ public partial class csContextBuilder<T>
     /// <returns>Created entity.</returns>
     public T Add(csEntityBaseModel<T> entity)
     {
-        var isEntityValid = this.IsEntityValid(entity);
+        this.IsEntityValid(entity);
         var entietiesToAdd = new List<T>();
         this.SetCsKey(entity);
         this.SetEntity(entity);
@@ -19,21 +19,10 @@ public partial class csContextBuilder<T>
         if (File.Exists(StoragePath))
         {
             var allRecords = this.GetRecords();
-            var isKeyUnique = this.IsKeyUnique();
-            entietiesToAdd.AddRange(allRecords);
-
-            if (isKeyUnique && isEntityValid)
-            {
-                entietiesToAdd.Add(ConvertObjectToGenericT(this.Entity));
-            }
-        }
-        else
-        {                      
-            if (isEntityValid)
-            {
-                entietiesToAdd.Add(ConvertObjectToGenericT(this.Entity));
-            }
-        }
+            this.IsKeyUnique();
+            entietiesToAdd.AddRange(allRecords);            
+        }                            
+        entietiesToAdd.Add(ConvertObjectToGenericT(this.Entity));
 
         this.WriteRecords(entietiesToAdd);
 

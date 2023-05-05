@@ -1,6 +1,5 @@
 ﻿using csStorage.Base.csEntityBaseModel;
 using csStorage.Exceptions;
-using csStorage.Shared;
 
 namespace csStorage.Builder.csContextBuilder;
 
@@ -14,7 +13,7 @@ public partial class csContextBuilder<T>
     /// <exception cref="EntityDoesntExistsException"></exception>
     public T Update(csEntityBaseModel<T> entity)
     {
-        var isEntityValid = this.IsEntityValid(entity);
+        this.IsEntityValid(entity);
         var entietiesToAdd = new List<T>();
         this.SetCsKey(entity);
         this.SetEntity(entity);
@@ -22,21 +21,14 @@ public partial class csContextBuilder<T>
         if (File.Exists(StoragePath))
         {
             var allRecords = this.GetRecords();
-            var doesKeyExists = this.DoesKeyExists();
-            if (!doesKeyExists)
-            {
-                throw new EntityDoesntExistsException();
-            }
+            this.DoesKeyExists();            
 
             var recordsWithoutUpdatedEntity = this.ConvertGenericListToEntityBaseModelList(allRecords).Where(x => x.csKey != this.csKey);
             var genericRecordsWithoutUpdatedEntity = this.ConvertEntityBaseModelListToGenericList(recordsWithoutUpdatedEntity);
 
             entietiesToAdd.AddRange(genericRecordsWithoutUpdatedEntity);
-
-            if (doesKeyExists && isEntityValid)
-            {
-                entietiesToAdd.Add(ConvertObjectToGenericT(this.Entity));
-            }
+                        
+            entietiesToAdd.Add(ConvertObjectToGenericT(this.Entity));            
         }
         else
         {
