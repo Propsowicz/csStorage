@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>csStorage</PackageId>
     <Title>csStorage</Title>
-    <Version>0.1.2</Version>
+    <Version>0.1.3</Version>
     <Authors>Tomasz Tomasik</Authors>
     <Company>Tomasz Tomasik</Company>
     <Description>csStorage is a data storage system that allows the user easily execute CRUD operations on csv files.</Description>
@@ -15,6 +15,7 @@
     <RepositoryUrl>https://github.com/Propsowicz/csStorage</RepositoryUrl>
     <PackageTags>csv, crud</PackageTags>
     <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/Propsowicz/csStorage</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
