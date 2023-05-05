@@ -29,7 +29,7 @@ public class PersonEntity : csEntityBaseModel<PersonEntity>
     }
 ```
 
-The second step is to initialize a new ContextBuilder<T> class:
+The second step is to initialize a new ContextBuilder<T> class instance:
 ```
     var contextBuilder = new csContextBuilder<PersonEntity>();
 ```
