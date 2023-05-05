@@ -7,10 +7,10 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>csStorage</PackageId>
     <Title>csStorage</Title>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <Authors>Tomasz Tomasik</Authors>
     <Company>Tomasz Tomasik</Company>
-    <Description>csStorage is a package which let user easily store unique entieties in csv files.</Description>
+    <Description>csStorage is a data storage system that allows the user easily execute CRUD operations on csv files.</Description>
     <Copyright>MIT</Copyright>
   </PropertyGroup>
 

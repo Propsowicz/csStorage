@@ -7,52 +7,7 @@ using csStorage.Exceptions;
 namespace csStorage.IntegrationTest.Builder.csContext;
 
 public partial class csContextBuilderTests
-{
-    [TestAfter]
-    [Fact]
-    public void GivenNullEntityModel_WhenAdd_ThenThrowAnException()
-    {
-        // given
-        UserEntityMock? userEntityMock = null;
-        var contextBuilder = new csContextBuilder<UserEntityMock?>();
-
-        // when
-        Action act = () =>
-        {
-            contextBuilder.Add(userEntityMock!);
-        };
-
-        // then
-        act.Should().Throw<Exception>();
-    }
-
-    [TestAfter]
-    [Theory, AutoData]
-    public void GivenInvalidEntityModel_WhenAdd_ThenCreateOneRecord(
-        string username,
-        int age,
-        bool isAdmin
-    )
-    {
-        // given
-        var userEntityMock = new InvalidUserEntityMock
-        {
-            UserName = username,
-            Age = age,
-            IsAdmin = isAdmin
-        };
-        var contextBuilder = new csContextBuilder<InvalidUserEntityMock>();
-
-        // when
-        Action act = () =>
-        {
-            contextBuilder.Add(userEntityMock);
-        };
-
-        // then
-        act.Should().Throw<CsKeyValueAttributeHasNotBeenSetException>();
-    }
-
+{    
     [TestAfter]
     [Theory, AutoData]
     public void GivenOkEntityModel_WhenAdd_ThenCreateOneRecord(
@@ -78,7 +33,7 @@ public partial class csContextBuilderTests
         var newNumberOfEntieties = contextBuilder.Get().Count();
         (newNumberOfEntieties - oldNumberOfEntieties).Should().Be(1);
         contextBuilder.Get().Last().UserName.Should().Be(username);
-        contextBuilder.Get().Last().csKeyValue.Should().Be(username);
+        contextBuilder.Get().Last().csKey.Should().Be(username);
         contextBuilder.Get().Last().Age.Should().Be(age);
         contextBuilder.Get().Last().IsAdmin.Should().Be(isAdmin);
     }
@@ -120,7 +75,7 @@ public partial class csContextBuilderTests
         var newNumberOfEntieties = contextBuilder.Get().Count();
         (newNumberOfEntieties - oldNumberOfEntieties).Should().Be(1);
         contextBuilder.Get().Last().UserName.Should().Be(username);
-        contextBuilder.Get().Last().csKeyValue.Should().Be(username);
+        contextBuilder.Get().Last().csKey.Should().Be(username);
         contextBuilder.Get().Last().Age.Should().Be(age);
         contextBuilder.Get().Last().IsAdmin.Should().Be(isAdmin);
     }

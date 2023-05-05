@@ -7,7 +7,7 @@ public partial class csContextBuilder<T>
     #region Properties    
     private object Entity { get; set; } = default!;
 
-    private string csKeyValue { get; set; } = default!;
+    private string csKey { get; set; } = default!;
 
     public string StoragePath { get; set; } = default!;
 

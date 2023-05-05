@@ -13,7 +13,7 @@ public partial class csContextBuilder<T>
     {
         var isEntityValid = this.IsEntityValid(entity);
         var entietiesToAdd = new List<T>();
-        this.SetCsKeyValue(entity);
+        this.SetCsKey(entity);
         this.SetEntity(entity);
         
         if (File.Exists(StoragePath))

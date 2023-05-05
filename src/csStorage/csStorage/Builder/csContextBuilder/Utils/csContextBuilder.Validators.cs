@@ -21,20 +21,20 @@ public partial class csContextBuilder<T>
 
     private bool IsKeyUnique()
     {
-        var listOfcsKeyValues = this.ConvertGenericListToEntityBaseModelList(this.GetRecords());
+        var listOfcsKeys = this.ConvertGenericListToEntityBaseModelList(this.GetRecords());
 
-        var isKeyUnique = !listOfcsKeyValues.Any(x => x.csKeyValue == this.csKeyValue);
+        var isKeyUnique = !listOfcsKeys.Any(x => x.csKey == this.csKey);
         if (!isKeyUnique)
         {
-            throw new ThisKeyValueAlreadyExistsException();
+            throw new ThisKeyAlreadyExistsException();
         }
         return isKeyUnique;
     }
 
     private bool DoesKeyExists()
     {
-        var listOfcsKeyValues = ConvertGenericListToEntityBaseModelList(this.GetRecords());
+        var listOfcsKeys = ConvertGenericListToEntityBaseModelList(this.GetRecords());
 
-        return listOfcsKeyValues.Any(x => x.csKeyValue == this.csKeyValue);
+        return listOfcsKeys.Any(x => x.csKey == this.csKey);
     }
 }

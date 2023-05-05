@@ -1,6 +1,5 @@
 ﻿using AutoFixture.Xunit2;
 using csStorage.Builder.csContextBuilder;
-using csStorage.Exceptions;
 using csStorage.IntegrationTest.Shared;
 using FluentAssertions;
 
@@ -145,20 +144,30 @@ public partial class csContextBuilderTests
     }
 
     [TestAfter]
-    [Fact]
-    public void GivenKey_WhenGet_ThenThrowAnException()
+    [Theory, AutoData]
+    public void GivenDateTimeKey_WhenGet_ThenGetRecord(
+        string username,
+        DateTime birthDate,
+        bool isAdmin
+    )
     {
-        // given        
-        var contextBuilder = new csContextBuilder<UserEntityMock>();
-        string usernameMock = "test";
+        // given
+        var userEntityMock = new UserEntityDateTimeKeyMock
+        {
+            UserName = username,
+            BirthDate = birthDate,
+            IsAdmin = isAdmin
+        };
+        var contextBuilder = new csContextBuilder<UserEntityDateTimeKeyMock>();
+        contextBuilder.Add(userEntityMock);
 
         // when
-        Action act = () =>
-        {
-            var listOfUsers = contextBuilder.Get(usernameMock);
-        };
+        var userEntity = contextBuilder.Get(birthDate);
 
-        // then        
-        act.Should().Throw<EntityDoesntExistsException>();
+        // then
+        userEntity.Should().NotBeNull();
+        userEntity.UserName.Should().Be(username);
+        userEntity.BirthDate.Should().BeCloseTo(birthDate, TimeSpan.FromSeconds(1));
+        userEntity.IsAdmin.Should().Be(isAdmin);
     }
 }

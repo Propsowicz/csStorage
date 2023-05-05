@@ -2,5 +2,5 @@
 
 public class csEntityBaseModel<T>
 {
-    public string csKeyValue { get; set; } = default!;     
+    public string csKey { get; set; } = default!;     
 }

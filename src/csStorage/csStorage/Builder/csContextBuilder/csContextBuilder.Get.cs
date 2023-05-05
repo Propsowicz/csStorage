@@ -16,42 +16,56 @@ public partial class csContextBuilder<T>
     /// <summary>
     /// Get record with specified string Key.
     /// </summary>
-    /// <param name="csKeyValue"></param>
+    /// <param name="csKey"></param>
     /// <returns>Entity</returns>
     /// <exception cref="EntityDoesntExistsException"></exception>
-    public T Get(string csKeyValue)
+    public T Get(string csKey)
     {
         var entityBaseModelList = this.ConvertGenericListToEntityBaseModelList(this.GetRecords());
 
-        return this.ConvertObjectToGenericT(entityBaseModelList.Where(x => x.csKeyValue == csKeyValue).FirstOrDefault() 
+        return this.ConvertObjectToGenericT(entityBaseModelList.Where(x => x.csKey == csKey).FirstOrDefault() 
             ?? throw new EntityDoesntExistsException());            
     }
 
     /// <summary>
     /// Get record with specified Guid Key.
     /// </summary>
-    /// <param name="csKeyValue"></param>
+    /// <param name="csKey"></param>
     /// <returns>Entity</returns>
     /// <exception cref="EntityDoesntExistsException"></exception>
-    public T Get(Guid csKeyValue)
+    public T Get(Guid csKey)
     {
         var entityBaseModelList = this.ConvertGenericListToEntityBaseModelList(this.GetRecords());
 
-        return this.ConvertObjectToGenericT(entityBaseModelList.Where(x => x.csKeyValue == csKeyValue.ToString()).FirstOrDefault()
+        return this.ConvertObjectToGenericT(entityBaseModelList.Where(x => x.csKey == csKey.ToString()).FirstOrDefault()
             ?? throw new EntityDoesntExistsException());
     }
 
     /// <summary>
     /// Get record with specified int Key.
     /// </summary>
-    /// <param name="csKeyValue"></param>
+    /// <param name="csKey"></param>
     /// <returns>Entity</returns>
     /// <exception cref="EntityDoesntExistsException"></exception>
-    public T Get(int csKeyValue)
+    public T Get(int csKey)
     {
         var entityBaseModelList = this.ConvertGenericListToEntityBaseModelList(this.GetRecords());
 
-        return this.ConvertObjectToGenericT(entityBaseModelList.Where(x => x.csKeyValue == csKeyValue.ToString()).FirstOrDefault()
+        return this.ConvertObjectToGenericT(entityBaseModelList.Where(x => x.csKey == csKey.ToString()).FirstOrDefault()
             ?? throw new EntityDoesntExistsException());
-    }     
+    }
+
+    /// <summary>
+    /// Get record with specified DateTime Key.
+    /// </summary>
+    /// <param name="csKey"></param>
+    /// <returns>Entity</returns>
+    /// <exception cref="EntityDoesntExistsException"></exception>
+    public T Get(DateTime csKey)
+    {
+        var entityBaseModelList = this.ConvertGenericListToEntityBaseModelList(this.GetRecords());
+
+        return this.ConvertObjectToGenericT(entityBaseModelList.Where(x => x.csKey == csKey.ToString()).FirstOrDefault()
+            ?? throw new EntityDoesntExistsException());
+    }
 }

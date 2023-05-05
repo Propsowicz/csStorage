@@ -7,11 +7,11 @@ namespace csStorage.Builder.csContextBuilder;
 public partial class csContextBuilder<T>
 {    private void SetEntity(csEntityBaseModel<T> entity)
     {
-        entity.csKeyValue = this.csKeyValue;
+        entity.csKey = this.csKey;
         this.Entity = entity;
     }
 
-    private void SetCsKeyValue(csEntityBaseModel<T> entity)
+    private void SetCsKey(csEntityBaseModel<T> entity)
     {
         try
         {
@@ -19,12 +19,12 @@ public partial class csContextBuilder<T>
             {
                 foreach (var obj in propertyInfo.GetCustomAttributes(true))
                 {
-                    if (obj is csKeyValue)
+                    if (obj is csKey)
                     {
                         var value = propertyInfo?.GetValue(entity)?.ToString();
                         if (!string.IsNullOrEmpty(value))
                         {
-                            this.csKeyValue = value;
+                            this.csKey = value;
                         }
                     }
                 }
@@ -32,9 +32,9 @@ public partial class csContextBuilder<T>
         }
         catch { }
 
-        if (string.IsNullOrEmpty(this.csKeyValue))
+        if (string.IsNullOrEmpty(this.csKey))
         {
-            throw new CsKeyValueAttributeHasNotBeenSetException();
+            throw new CsKeyAttributeHasNotBeenSetException();
         }
     }
 
