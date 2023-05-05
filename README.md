@@ -29,12 +29,12 @@ public class PersonEntity : csEntityBaseModel<PersonEntity>
     }
 ```
 
-The second step is to initialize a new ContextBuilder<T> class instance:
+The second step is to initialize a new csContextBuilder<T> class instance:
 ```
     var contextBuilder = new csContextBuilder<PersonEntity>();
 ```
 
-Then You can perform CRUD operations using ContextBuilder<T> methods:
+Then You can perform CRUD operations using csContextBuilder<T> methods:
 ```
     var person = new PersonEntity {
       ///
