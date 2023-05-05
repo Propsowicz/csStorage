@@ -10,7 +10,7 @@
     <Version>0.1.3</Version>
     <Authors>Tomasz Tomasik</Authors>
     <Company>Tomasz Tomasik</Company>
-    <Description>csStorage is a data storage system that allows the user easily execute CRUD operations on csv files.</Description>
+    <Description>csStorage is a data storage system that allows the user to easily execute CRUD operations on csv files.</Description>
     <Copyright>Tomasz Tomasik</Copyright>
     <RepositoryUrl>https://github.com/Propsowicz/csStorage</RepositoryUrl>
     <PackageTags>csv, crud</PackageTags>
