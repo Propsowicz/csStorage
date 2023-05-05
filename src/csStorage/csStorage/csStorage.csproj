@@ -11,11 +11,12 @@
     <Authors>Tomasz Tomasik</Authors>
     <Company>Tomasz Tomasik</Company>
     <Description>csStorage is a data storage system that allows the user easily execute CRUD operations on csv files.</Description>
-    <Copyright>MIT</Copyright>
+    <Copyright>Tomasz Tomasik</Copyright>
     <RepositoryUrl>https://github.com/Propsowicz/csStorage</RepositoryUrl>
     <PackageTags>csv, crud</PackageTags>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/Propsowicz/csStorage</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
