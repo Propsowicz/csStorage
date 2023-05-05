@@ -4,6 +4,7 @@ The system maps class entieties to csv files using unique key for each record.
 
 ## Getting started
 csStorage is a lightweight package that is ready to use just after adding the nuget to your solution.
+
 First step is to create entity Model that inherits from csEntityBaseModel<T> and set [csKey] attribute.
 ```
 public class PersonEntity : csEntityBaseModel<PersonEntity>
@@ -27,8 +28,6 @@ public class PersonEntity : csEntityBaseModel<PersonEntity>
         public string Country { get; set; }
     }
 ```
-
-## License 
 
 The second step is to initialize a new ContextBuilder<T> class:
 ```
