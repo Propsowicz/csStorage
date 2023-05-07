@@ -13,7 +13,7 @@ public partial class csContextBuilder<T>
 
     public string DirectoryPath { get; set; } = default!;
 
-    public string Result { get; set; } = ResultStatus.Failure;
+    public string Result { get; private set; } = ResultStatus.Failure;
 
 #endregion
 
