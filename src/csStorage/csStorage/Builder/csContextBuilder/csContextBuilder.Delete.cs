@@ -13,25 +13,7 @@ public partial class csContextBuilder<T>
     /// <exception cref="EntityDoesntExistsException"></exception>
     public void Delete(csEntityBaseModel<T>? entity)
     {
-        this.IsEntityValid(entity);
-        var entietiesToAdd = new List<T>();
-        this.SetCsKey(entity!);
-        this.SetEntity(entity!);
-
-        if (File.Exists(StoragePath))
-        {
-            var allRecords = this.GetRecords();
-            this.DoesKeyExists();            
-
-            var recordsWithoutUpdatedEntity = this.ConvertGenericListToEntityBaseModelList(this.GetRecords()).Where(x => x.csKey != this.csKey);
-            var genericRecordsWithoutUpdatedEntity = this.ConvertEntityBaseModelListToGenericList(recordsWithoutUpdatedEntity);
-
-            entietiesToAdd.AddRange(genericRecordsWithoutUpdatedEntity);            
-        }
-        else
-        {
-            throw new EntityDoesntExistsException();
-        }
+        var entietiesToAdd = this.GetEntietiesToAddInDeleteMethod(entity);
 
         this.WriteRecords(entietiesToAdd);
     }

@@ -52,4 +52,11 @@ public partial class csContextBuilder<T>
     {
         this.StoragePath = this.DirectoryPath + $"\\{typeof(T).Name}.csv";
     }
+
+    private void SetContextBuilderProperties(csEntityBaseModel<T>? entity)
+    {
+        this.IsEntityValid(entity);
+        this.SetCsKey(entity!);
+        this.SetEntity(entity!);
+    }
 }

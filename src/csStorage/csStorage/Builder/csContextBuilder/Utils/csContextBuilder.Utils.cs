@@ -20,15 +20,13 @@ public partial class csContextBuilder<T>
         return this.ConvertObjectToGenericT(entityBaseModelList.Where(x => x.csKey == csKey).FirstOrDefault()
             ?? throw new EntityDoesntExistsException());
     }
-
+      
     private List<T> GetEntietiesToAddInAddMethod(csEntityBaseModel<T> entity)
     {
-        this.IsEntityValid(entity);
+        this.SetContextBuilderProperties(entity);
         var entietiesToAdd = new List<T>();
-        this.SetCsKey(entity);
-        this.SetEntity(entity);
 
-        if (File.Exists(StoragePath))
+        if (File.Exists(this.StoragePath))
         {
             var allRecords = this.GetRecords();
             this.IsKeyUnique();
@@ -41,12 +39,10 @@ public partial class csContextBuilder<T>
 
     private List<T> GetEntietiesToAddInUpdateMethod(csEntityBaseModel<T> entity)
     {
-        this.IsEntityValid(entity);
+        this.SetContextBuilderProperties(entity);
         var entietiesToAdd = new List<T>();
-        this.SetCsKey(entity);
-        this.SetEntity(entity);
 
-        if (File.Exists(StoragePath))
+        if (File.Exists(this.StoragePath))
         {
             var allRecords = this.GetRecords();
             this.DoesKeyExists();
@@ -66,14 +62,12 @@ public partial class csContextBuilder<T>
         return entietiesToAdd;
     }
 
-    private List<T> GetEntietiesToAddInDeleteMethod(csEntityBaseModel<T> entity)
+    private List<T> GetEntietiesToAddInDeleteMethod(csEntityBaseModel<T>? entity)
     {
-        this.IsEntityValid(entity);
+        this.SetContextBuilderProperties(entity);
         var entietiesToAdd = new List<T>();
-        this.SetCsKey(entity!);
-        this.SetEntity(entity!);
 
-        if (File.Exists(StoragePath))
+        if (File.Exists(this.StoragePath))
         {
             var allRecords = this.GetRecords();
             this.DoesKeyExists();
