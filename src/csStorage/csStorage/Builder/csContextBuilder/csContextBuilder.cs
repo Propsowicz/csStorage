@@ -1,17 +1,19 @@
-﻿using csStorage.Base.csEntityBaseModel;
+﻿using csStorage.Shared;
 
 namespace csStorage.Builder.csContextBuilder;
 
 public partial class csContextBuilder<T>
 {
     #region Properties    
-    private object Entity { get; set; } = default!;
-
     private string csKey { get; set; } = default!;
+
+    private object Entity { get; set; } = default!;
 
     public string StoragePath { get; set; } = default!;
 
     public string DirectoryPath { get; set; } = default!;
+
+    public string Result { get; set; } = ResultStatus.Failure;
 
 #endregion
 

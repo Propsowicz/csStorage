@@ -59,4 +59,9 @@ public partial class csContextBuilder<T>
         this.SetCsKey(entity!);
         this.SetEntity(entity!);
     }
+
+    private void SetSuccessResult()
+    {
+        this.Result = ResultStatus.Success;
+    }
 }
