@@ -1,4 +1,6 @@
-﻿namespace csStorage.Builder.csContextBuilder;
+﻿using System.Xml.Linq;
+
+namespace csStorage.Builder.csContextBuilder;
 
 public partial class csContextBuilder<T>
 {
@@ -49,5 +51,54 @@ public partial class csContextBuilder<T>
     public T Get(DateTime csKey)
     {
         return this.GetRecordByKey(csKey.ToString());
+    }
+
+    /// <summary>
+    /// Asynchronously get all records from csv file.
+    /// </summary>
+    /// <returns>IEnumerable<entieties></returns>
+    public async Task<IEnumerable<T>> GetAsync()
+    {
+        return await this.GetRecordsAsync();
+    }
+
+    /// <summary>
+    /// Asynchronously get record with specified string Key.
+    /// </summary>
+    /// <param name="csKey"></param>
+    /// <returns>Entity</returns>
+    public async Task<T> GetAsync(string csKey)
+    {
+        return await this.GetRecordByKeyAsync(csKey);
+    }
+
+    /// <summary>
+    /// Asynchronously get record with specified Guid Key.
+    /// </summary>
+    /// <param name="csKey"></param>
+    /// <returns>Entity</returns>
+    public async Task<T> GetAsync(Guid csKey)
+    {
+        return await this.GetRecordByKeyAsync(csKey.ToString());
+    }
+
+    /// <summary>
+    /// Asynchronously get record with specified int Key.
+    /// </summary>
+    /// <param name="csKey"></param>
+    /// <returns>Entity</returns>
+    public async Task<T> GetAsync(int csKey)
+    {
+        return await this.GetRecordByKeyAsync(csKey.ToString());
+    }
+
+    /// <summary>
+    /// Asynchronously get record with specified DateTime Key.
+    /// </summary>
+    /// <param name="csKey"></param>
+    /// <returns>Entity</returns>
+    public async Task<T> GetAsync(DateTime csKey)
+    {
+        return await this.GetRecordByKeyAsync(csKey.ToString());
     }
 }
