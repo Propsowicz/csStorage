@@ -10,7 +10,9 @@ public partial class csContextBuilder<T>
     /// <returns>IEnumerable<entieties></returns>
     public IEnumerable<T> Get()
     {
-        return this.GetRecords();
+        var records = this.GetRecords();
+        this.SetSuccessResult();
+        return records;
     }
 
     /// <summary>
@@ -59,7 +61,9 @@ public partial class csContextBuilder<T>
     /// <returns>IEnumerable<entieties></returns>
     public async Task<IEnumerable<T>> GetAsync()
     {
-        return await this.GetRecordsAsync();
+        var records = await this.GetRecordsAsync();
+        this.SetSuccessResult();
+        return records;
     }
 
     /// <summary>

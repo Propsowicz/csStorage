@@ -13,6 +13,7 @@ public partial class csContextBuilder<T>
     {
         var entietiesToAdd = this.GetEntietiesToAddInUpdateMethod(entity);
         this.WriteRecords(entietiesToAdd);
+        this.SetSuccessResult();
     }
 
     /// <summary>
@@ -23,5 +24,6 @@ public partial class csContextBuilder<T>
     {
         var entietiesToAdd = this.GetEntietiesToAddInUpdateMethod(entity);
         await this.WriteRecordsAsync(entietiesToAdd);
+        this.SetSuccessResult();
     }
 }
