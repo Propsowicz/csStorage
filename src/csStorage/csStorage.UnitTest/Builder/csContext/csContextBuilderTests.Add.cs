@@ -128,4 +128,29 @@ public partial class csContextBuilderTests
         // then
         contextBuilder.Result.Should().Be(ContextBuilderResult.Success);
     }
+
+    [TestAfter]
+    [Theory, AutoData]
+    public void GivenEntityModelWithAutoKeyStringAttribute_WhenAdd_ThenThrowAnException(
+        string username,
+        int age
+    )
+    {
+        // given
+        var userEntityMock = new UserEntityMockAutoKeyString
+        {
+            UserName = username,
+            Age = age
+        };
+        var contextBuilder = new csContextBuilder<UserEntityMockAutoKeyString>();
+
+        // when
+        Action act = () =>
+        {
+            contextBuilder.Add(userEntityMock);
+        };
+
+        // then
+        act.Should().Throw<CsAutoKeyNeedToBeIntOrGuidTypeException>();
+    }
 }

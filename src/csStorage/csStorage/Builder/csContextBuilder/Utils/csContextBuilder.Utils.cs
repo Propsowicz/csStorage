@@ -1,5 +1,6 @@
 ﻿using csStorage.Base.csEntityBaseModel;
 using csStorage.Exceptions;
+using csStorage.Shared;
 
 namespace csStorage.Builder.csContextBuilder;
 
@@ -21,26 +22,33 @@ public partial class csContextBuilder<T>
             ?? throw new EntityDoesntExistsException());
     }
       
-    private List<T> GetEntietiesToAddInAddMethod(csEntityBaseModel<T> entity)
+    private List<T> GetEntitiesToAddInAddMethod(csEntityBaseModel<T> entity)
     {
         this.SetContextBuilderProperties(entity);
-        var entietiesToAdd = new List<T>();
+        var allRecords = this.GetRecords();
+
+        if (this.IsAutoKey && this.csKey == nameof(csAutoKey))
+        {
+            this.SetCsKeyWithAutoValue(allRecords, entity);
+        }
+
+        var entitiesToAdd = new List<T>();
 
         if (File.Exists(this.StoragePath))
-        {
-            var allRecords = this.GetRecords();
-            this.IsKeyUnique();
-            entietiesToAdd.AddRange(allRecords);
+        {                        
+            this.IsKeyUnique();           
+            entitiesToAdd.AddRange(allRecords);
         }
-        entietiesToAdd.Add(ConvertObjectToGenericT(this.Entity));
 
-        return entietiesToAdd;
+        entitiesToAdd.Add(ConvertObjectToGenericT(this.Entity));
+
+        return entitiesToAdd;
     }
 
-    private List<T> GetEntietiesToAddInUpdateMethod(csEntityBaseModel<T> entity)
+    private List<T> GetEntitiesToAddInUpdateMethod(csEntityBaseModel<T> entity)
     {
         this.SetContextBuilderProperties(entity);
-        var entietiesToAdd = new List<T>();
+        var entitiesToAdd = new List<T>();
 
         if (File.Exists(this.StoragePath))
         {
@@ -50,23 +58,23 @@ public partial class csContextBuilder<T>
             var recordsWithoutUpdatedEntity = this.ConvertGenericListToEntityBaseModelList(allRecords).Where(x => x.csKey != this.csKey);
             var genericRecordsWithoutUpdatedEntity = this.ConvertEntityBaseModelListToGenericList(recordsWithoutUpdatedEntity);
 
-            entietiesToAdd.AddRange(genericRecordsWithoutUpdatedEntity);
+            entitiesToAdd.AddRange(genericRecordsWithoutUpdatedEntity);
 
-            entietiesToAdd.Add(ConvertObjectToGenericT(this.Entity));
+            entitiesToAdd.Add(ConvertObjectToGenericT(this.Entity));
         }
         else
         {
             throw new EntityDoesntExistsException();
         }
 
-        return entietiesToAdd;
+        return entitiesToAdd;
     }
 
-    private List<T> GetEntietiesToAddInDeleteMethod(csEntityBaseModel<T>? entity)
+    private List<T> GetEntitiesToAddInDeleteMethod(csEntityBaseModel<T>? entity)
     {
         this.SetContextBuilderProperties(entity);
-        var entietiesToAdd = new List<T>();
 
+        var entitiesToAdd = new List<T>();
         if (File.Exists(this.StoragePath))
         {
             var allRecords = this.GetRecords();
@@ -75,13 +83,13 @@ public partial class csContextBuilder<T>
             var recordsWithoutUpdatedEntity = this.ConvertGenericListToEntityBaseModelList(this.GetRecords()).Where(x => x.csKey != this.csKey);
             var genericRecordsWithoutUpdatedEntity = this.ConvertEntityBaseModelListToGenericList(recordsWithoutUpdatedEntity);
 
-            entietiesToAdd.AddRange(genericRecordsWithoutUpdatedEntity);
+            entitiesToAdd.AddRange(genericRecordsWithoutUpdatedEntity);
         }
         else
         {
             throw new EntityDoesntExistsException();
         }
 
-        return entietiesToAdd;
+        return entitiesToAdd;
     }
 }

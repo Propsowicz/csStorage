@@ -34,15 +34,15 @@ public partial class csContextBuilderTests
         var contextBuilder = new csContextBuilder<UserEntityMock>();
         contextBuilder.Add(userEntityMock);
         contextBuilder.Add(userEntityMock2);
-        var oldNumberOfEntieties = contextBuilder.Get().Count();
+        var oldNumberOfEntities = contextBuilder.Get().Count();
 
         // when
         contextBuilder.Delete(userEntityMock);
 
         // then
-        var newNumberOfEntieties = contextBuilder.Get().Count();
-        oldNumberOfEntieties.Should().Be(2);
-        newNumberOfEntieties.Should().Be(1);
+        var newNumberOfEntities = contextBuilder.Get().Count();
+        oldNumberOfEntities.Should().Be(2);
+        newNumberOfEntities.Should().Be(1);
     }
 
     [TestAfter]
@@ -72,15 +72,15 @@ public partial class csContextBuilderTests
         var contextBuilder = new csContextBuilder<UserEntityStringKeyMock>();
         contextBuilder.Add(userEntityMock);
         contextBuilder.Add(userEntityMock2);
-        var oldNumberOfEntieties = contextBuilder.Get().Count();
+        var oldNumberOfEntities = contextBuilder.Get().Count();
 
         // when
         contextBuilder.Delete(userEntityMock.UserName);
 
         // then
-        var newNumberOfEntieties = contextBuilder.Get().Count();
-        oldNumberOfEntieties.Should().Be(2);
-        newNumberOfEntieties.Should().Be(1);
+        var newNumberOfEntities = contextBuilder.Get().Count();
+        oldNumberOfEntities.Should().Be(2);
+        newNumberOfEntities.Should().Be(1);
     }
 
     [TestAfter]
@@ -110,15 +110,15 @@ public partial class csContextBuilderTests
         var contextBuilder = new csContextBuilder<UserEntityGuidKeyMock>();
         contextBuilder.Add(userEntityMock);
         contextBuilder.Add(userEntityMock2);
-        var oldNumberOfEntieties = contextBuilder.Get().Count();
+        var oldNumberOfEntities = contextBuilder.Get().Count();
 
         // when
         contextBuilder.Delete(userEntityMock.csKey);
 
         // then
-        var newNumberOfEntieties = contextBuilder.Get().Count();
-        oldNumberOfEntieties.Should().Be(2);
-        newNumberOfEntieties.Should().Be(1);
+        var newNumberOfEntities = contextBuilder.Get().Count();
+        oldNumberOfEntities.Should().Be(2);
+        newNumberOfEntities.Should().Be(1);
     }
 
     [TestAfter]
@@ -148,15 +148,15 @@ public partial class csContextBuilderTests
         var contextBuilder = new csContextBuilder<UserEntityIntKeyMock>();
         contextBuilder.Add(userEntityMock);
         contextBuilder.Add(userEntityMock2);
-        var oldNumberOfEntieties = contextBuilder.Get().Count();
+        var oldNumberOfEntities = contextBuilder.Get().Count();
 
         // when
         contextBuilder.Delete(userEntityMock.Age);
 
         // then
-        var newNumberOfEntieties = contextBuilder.Get().Count();
-        oldNumberOfEntieties.Should().Be(2);
-        newNumberOfEntieties.Should().Be(1);
+        var newNumberOfEntities = contextBuilder.Get().Count();
+        oldNumberOfEntities.Should().Be(2);
+        newNumberOfEntities.Should().Be(1);
     }
 
     [TestAfter]
@@ -186,15 +186,15 @@ public partial class csContextBuilderTests
         var contextBuilder = new csContextBuilder<UserEntityDateTimeKeyMock>();
         contextBuilder.Add(userEntityMock);
         contextBuilder.Add(userEntityMock2);
-        var oldNumberOfEntieties = contextBuilder.Get().Count();
+        var oldNumberOfEntities = contextBuilder.Get().Count();
 
         // when
         contextBuilder.Delete(userEntityMock.BirthDate);
 
         // then
-        var newNumberOfEntieties = contextBuilder.Get().Count();
-        oldNumberOfEntieties.Should().Be(2);
-        newNumberOfEntieties.Should().Be(1);
+        var newNumberOfEntities = contextBuilder.Get().Count();
+        oldNumberOfEntities.Should().Be(2);
+        newNumberOfEntities.Should().Be(1);
     }
 
     [TestAfter]
@@ -224,15 +224,15 @@ public partial class csContextBuilderTests
         var contextBuilder = new csContextBuilder<UserEntityMock>();
         contextBuilder.Add(userEntityMock);
         contextBuilder.Add(userEntityMock2);
-        var oldNumberOfEntieties = contextBuilder.Get().Count();
+        var oldNumberOfEntities = contextBuilder.Get().Count();
 
         // when
         await contextBuilder.DeleteAsync(userEntityMock);
 
         // then
-        var newNumberOfEntieties = contextBuilder.Get().Count();
-        oldNumberOfEntieties.Should().Be(2);
-        newNumberOfEntieties.Should().Be(1);
+        var newNumberOfEntities = contextBuilder.Get().Count();
+        oldNumberOfEntities.Should().Be(2);
+        newNumberOfEntities.Should().Be(1);
     }
 
     [TestAfter]
@@ -262,15 +262,15 @@ public partial class csContextBuilderTests
         var contextBuilder = new csContextBuilder<UserEntityStringKeyMock>();
         contextBuilder.Add(userEntityMock);
         contextBuilder.Add(userEntityMock2);
-        var oldNumberOfEntieties = contextBuilder.Get().Count();
+        var oldNumberOfEntities = contextBuilder.Get().Count();
 
         // when
         await contextBuilder.DeleteAsync(userEntityMock.UserName);
 
         // then
-        var newNumberOfEntieties = contextBuilder.Get().Count();
-        oldNumberOfEntieties.Should().Be(2);
-        newNumberOfEntieties.Should().Be(1);
+        var newNumberOfEntities = contextBuilder.Get().Count();
+        oldNumberOfEntities.Should().Be(2);
+        newNumberOfEntities.Should().Be(1);
     }
 
     [TestAfter]
@@ -300,15 +300,15 @@ public partial class csContextBuilderTests
         var contextBuilder = new csContextBuilder<UserEntityGuidKeyMock>();
         contextBuilder.Add(userEntityMock);
         contextBuilder.Add(userEntityMock2);
-        var oldNumberOfEntieties = contextBuilder.Get().Count();
+        var oldNumberOfEntities = contextBuilder.Get().Count();
 
         // when
         await contextBuilder.DeleteAsync(userEntityMock.csKey);
 
         // then
-        var newNumberOfEntieties = contextBuilder.Get().Count();
-        oldNumberOfEntieties.Should().Be(2);
-        newNumberOfEntieties.Should().Be(1);
+        var newNumberOfEntities = contextBuilder.Get().Count();
+        oldNumberOfEntities.Should().Be(2);
+        newNumberOfEntities.Should().Be(1);
     }
 
     [TestAfter]
@@ -338,15 +338,15 @@ public partial class csContextBuilderTests
         var contextBuilder = new csContextBuilder<UserEntityIntKeyMock>();
         contextBuilder.Add(userEntityMock);
         contextBuilder.Add(userEntityMock2);
-        var oldNumberOfEntieties = contextBuilder.Get().Count();
+        var oldNumberOfEntities = contextBuilder.Get().Count();
 
         // when
         await contextBuilder.DeleteAsync(userEntityMock.Age);
 
         // then
-        var newNumberOfEntieties = contextBuilder.Get().Count();
-        oldNumberOfEntieties.Should().Be(2);
-        newNumberOfEntieties.Should().Be(1);
+        var newNumberOfEntities = contextBuilder.Get().Count();
+        oldNumberOfEntities.Should().Be(2);
+        newNumberOfEntities.Should().Be(1);
     }
 
     [TestAfter]
@@ -376,14 +376,14 @@ public partial class csContextBuilderTests
         var contextBuilder = new csContextBuilder<UserEntityDateTimeKeyMock>();
         contextBuilder.Add(userEntityMock);
         contextBuilder.Add(userEntityMock2);
-        var oldNumberOfEntieties = contextBuilder.Get().Count();
+        var oldNumberOfEntities = contextBuilder.Get().Count();
 
         // when
         await contextBuilder.DeleteAsync(userEntityMock.BirthDate);
 
         // then
-        var newNumberOfEntieties = contextBuilder.Get().Count();
-        oldNumberOfEntieties.Should().Be(2);
-        newNumberOfEntieties.Should().Be(1);
+        var newNumberOfEntities = contextBuilder.Get().Count();
+        oldNumberOfEntities.Should().Be(2);
+        newNumberOfEntities.Should().Be(1);
     }
 }

@@ -12,30 +12,74 @@ public partial class csContextBuilder<T>
     }
 
     private void SetCsKey(csEntityBaseModel<T> entity)
-    {
-        try
+    {        
+        foreach (var propertyInfo in entity.GetType().GetProperties())
         {
-            foreach (var propertyInfo in entity.GetType().GetProperties())
+            foreach (var obj in propertyInfo.GetCustomAttributes(true))
             {
-                foreach (var obj in propertyInfo.GetCustomAttributes(true))
+                if (obj is csKey)
                 {
-                    if (obj is csKey)
+                    var value = propertyInfo?.GetValue(entity)?.ToString();
+                    if (!string.IsNullOrEmpty(value))
                     {
-                        var value = propertyInfo?.GetValue(entity)?.ToString();
-                        if (!string.IsNullOrEmpty(value))
-                        {
-                            this.csKey = value;
-                        }
+                        this.csKey = value;
+                    }
+                }
+                if (obj is csAutoKey)
+                {
+                    var propertyType = propertyInfo?.PropertyType;
+
+                    if (propertyType != typeof(int) && propertyType != typeof(Guid))
+                    {
+                        throw new CsAutoKeyNeedToBeIntOrGuidTypeException();
+                    }
+                    var value = propertyInfo?.GetValue(entity);
+
+                    if ((value!.GetType() == typeof(int) && (int)value == 0) ||
+                        ((value!.GetType() == typeof(Guid) && (Guid)value! == Guid.Empty))    
+                    )
+                    {
+                        this.SetCsAutoKeyProperties(nameof(csAutoKey), propertyType);
+                    }
+                    else
+                    {                        
+                        this.SetCsAutoKeyProperties(value.ToString()!, propertyType);                        
                     }
                 }
             }
-        }
-        catch { }
+        }        
 
         if (string.IsNullOrEmpty(this.csKey))
         {
             throw new CsKeyAttributeHasNotBeenSetException();
         }
+    }
+
+    private void SetCsKeyWithAutoValue(IEnumerable<T> allRecords, csEntityBaseModel<T> entity)
+    {
+        if (this.AutoKeyType == typeof(int))
+        {
+            var entityBaseModelList = this.ConvertGenericListToEntityBaseModelList(allRecords);
+            int maxAutoKeyValue;
+
+            if (entityBaseModelList.Count > 0)
+            {
+                maxAutoKeyValue = entityBaseModelList.Max(x => Convert.ToInt32(x.csKey));
+            }
+            else
+            {
+                maxAutoKeyValue = 0;
+            }
+
+            this.csKey = (maxAutoKeyValue + 1).ToString();
+        }
+
+        if (this.AutoKeyType == typeof(Guid))
+        {
+            this.csKey = Guid.NewGuid().ToString();
+        }
+
+        this.SetEntity(entity);
     }
 
     private void SetDirectoryPath()
@@ -63,5 +107,12 @@ public partial class csContextBuilder<T>
     private void SetSuccessResult()
     {
         this.Result = ResultStatus.Success;
+    }
+
+    private void SetCsAutoKeyProperties(string value, Type propertyType)
+    {
+        this.IsAutoKey = true;
+        this.AutoKeyType = propertyType;
+        this.csKey = value;
     }
 }

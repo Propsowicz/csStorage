@@ -61,4 +61,24 @@ namespace csStorage.IntegrationTest.Shared
 
         public bool IsAdmin { get; set; }
     }
+
+    public class UserEntityMockAutoKeyInt : csEntityBaseModel<UserEntityMockAutoKeyInt>
+    {
+        [csAutoKey]
+        public int Id { get; set; }
+
+        public string? UserName { get; set; }
+
+        public int Age { get; set; }
+    }
+
+    public class UserEntityMockAutoKeyGuid : csEntityBaseModel<UserEntityMockAutoKeyGuid>
+    {
+        [csAutoKey]
+        public Guid Id { get; set; }
+
+        public string? UserName { get; set; }
+
+        public int Age { get; set; }
+    }
 }
