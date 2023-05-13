@@ -153,7 +153,7 @@ public partial class csContextBuilderTests
 
     [TestAfter]
     [Theory, AutoData]
-    public void GivenEntityWithCsAutoKeyIntegerTypeAndNullValue_WhenAdd_ThenCsKeyShouldBeOne(
+    public void GivenEntityWithCsAutoKeyIntegerTypeAndEmptyValue_WhenAdd_ThenCsKeyShouldBeOne(
         string username,
         int age
     )
@@ -177,7 +177,7 @@ public partial class csContextBuilderTests
 
     [TestAfter]
     [Theory, AutoData]
-    public void GivenTwoEntitesWithCsAutoKeyIntegerTypeAndNullValue_WhenAdd_ThenCsKeyShouldBeOneAndTwo(
+    public void GivenTwoEntitesWithCsAutoKeyIntegerTypeAndEmptyValue_WhenAdd_ThenFirstCsKeyShouldBeOneAndSecondShouldBeTwo(
         string username,
         int age,
         string username2,
@@ -202,12 +202,99 @@ public partial class csContextBuilderTests
         contextBuilder.Add(userEntityMock2);
 
         // then        
-        contextBuilder.Get().First().csKey.Should().Be(1.ToString());
-        contextBuilder.Get().First().UserName.Should().Be(username);
-        contextBuilder.Get().First().Age.Should().Be(age);
-        contextBuilder.Get().Last().csKey.Should().Be(2.ToString());
-        contextBuilder.Get().Last().UserName.Should().Be(username2);
-        contextBuilder.Get().Last().Age.Should().Be(age2);
+        contextBuilder.Get(1).csKey.Should().Be(1.ToString());
+        contextBuilder.Get(1).UserName.Should().Be(username);
+        contextBuilder.Get(1).Age.Should().Be(age);
+        contextBuilder.Get(2).csKey.Should().Be(2.ToString());
+        contextBuilder.Get(2).UserName.Should().Be(username2);
+        contextBuilder.Get(2).Age.Should().Be(age2);
+    }
+
+    [TestAfter]
+    [Theory, AutoData]
+    public void GivenThreeEntitesWithCsAutoKeyIntegerTypeAndDiffValues_WhenAdd_ThenSecondCsKeyShouldBeFirstAvaibleNumber(
+        string username,
+        int age,
+        string username2,
+        int age2,
+        string username3,
+        int age3
+    )
+    {
+        // given
+        var userEntityMock = new UserEntityMockAutoKeyInt
+        {
+            UserName = username,
+            Age = age
+        };
+        var userEntityMock2 = new UserEntityMockAutoKeyInt
+        {
+            Id = 5,
+            UserName = username2,
+            Age = age2
+        };
+        var userEntityMock3 = new UserEntityMockAutoKeyInt
+        {
+            UserName = username3,
+            Age = age3
+        };
+        var contextBuilder = new csContextBuilder<UserEntityMockAutoKeyInt>();
+
+        // when        
+        contextBuilder.Add(userEntityMock);
+        contextBuilder.Add(userEntityMock2);
+        contextBuilder.Add(userEntityMock3);
+
+        // then      
+        contextBuilder.Get(1).csKey.Should().Be(1.ToString());
+        contextBuilder.Get(2).csKey.Should().Be(2.ToString());
+        contextBuilder.Get(5).csKey.Should().Be(5.ToString());
+    }
+
+    [TestAfter]
+    [Theory, AutoData]
+    public void GivenFourEntitesWithCsAutoKeyIntegerTypeAndEmptyDiffValues_WhenAdd_ThenListOfIdsShouldBeRight(
+        string username,
+        int age
+    )
+    {
+        // given
+        var userEntityMock = new UserEntityMockAutoKeyInt
+        {
+            UserName = username,
+            Age = age
+        };
+        var userEntityMock2 = new UserEntityMockAutoKeyInt
+        {
+            Id = 3,
+            UserName = username,
+            Age = age
+        };
+        var userEntityMock3 = new UserEntityMockAutoKeyInt
+        {
+            UserName = username,
+            Age = age
+        };
+        var userEntityMock4 = new UserEntityMockAutoKeyInt
+        {
+            UserName = username,
+            Age = age
+        };
+        var contextBuilder = new csContextBuilder<UserEntityMockAutoKeyInt>();
+
+        // when        
+        contextBuilder.Add(userEntityMock);
+        contextBuilder.Add(userEntityMock2);
+        contextBuilder.Add(userEntityMock3);
+        contextBuilder.Add(userEntityMock4);
+
+        // then      
+        var listOfIds = contextBuilder.Get().Select(x => Convert.ToInt32(x.csKey)).ToList();
+        listOfIds.Should().HaveCount(4);
+        listOfIds.Should().Contain(1);
+        listOfIds.Should().Contain(2);
+        listOfIds.Should().Contain(3);
+        listOfIds.Should().Contain(4);
     }
 
     [TestAfter]
@@ -238,7 +325,7 @@ public partial class csContextBuilderTests
 
     [TestAfter]
     [Theory, AutoData]
-    public void GivenEntityWithCsAutoKeyGuidTypeAndNullValue_WhenAdd_ThenCsKeyShouldBeGuid(
+    public void GivenEntityWithCsAutoKeyGuidTypeAndEmptyValue_WhenAdd_ThenCsKeyShouldBeGuid(
         string username,
         int age
     )

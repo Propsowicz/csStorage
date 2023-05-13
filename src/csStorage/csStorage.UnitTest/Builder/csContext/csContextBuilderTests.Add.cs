@@ -11,7 +11,7 @@ public partial class csContextBuilderTests
 {
     [TestAfter]
     [Fact]
-    public void GivenNullEntityModel_WhenAdd_ThenThrowAnException()
+    public void GivenNullEntity_WhenAdd_ThenThrowAnException()
     {
         // given
         UserEntityMock? userEntityMock = null;
@@ -29,7 +29,7 @@ public partial class csContextBuilderTests
 
     [TestAfter]
     [Theory, AutoData]
-    public void GivenEntityModelWithoutKeyAttribute_WhenAdd_ThenThrowAnException(
+    public void GivenEntityWithoutKeyAttribute_WhenAdd_ThenThrowAnException(
         string username,
         int age,
         bool isAdmin
@@ -131,7 +131,7 @@ public partial class csContextBuilderTests
 
     [TestAfter]
     [Theory, AutoData]
-    public void GivenEntityModelWithAutoKeyStringAttribute_WhenAdd_ThenThrowAnException(
+    public void GivenEntityWithCsAutoKeyAttributeAndStringTypeCsAutoKey_WhenAdd_ThenThrowAnException(
         string username,
         int age
     )
