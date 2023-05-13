@@ -7,7 +7,7 @@ public partial class csContextBuilder<T>
     /// <summary>
     /// Get all records from csv file.
     /// </summary>
-    /// <returns>IEnumerable<entieties></returns>
+    /// <returns>IEnumerable<Entities></returns>
     public IEnumerable<T> Get()
     {
         var records = this.GetRecords();
@@ -58,7 +58,7 @@ public partial class csContextBuilder<T>
     /// <summary>
     /// Asynchronously get all records from csv file.
     /// </summary>
-    /// <returns>IEnumerable<entieties></returns>
+    /// <returns>IEnumerable<Entities></returns>
     public async Task<IEnumerable<T>> GetAsync()
     {
         var records = await this.GetRecordsAsync();

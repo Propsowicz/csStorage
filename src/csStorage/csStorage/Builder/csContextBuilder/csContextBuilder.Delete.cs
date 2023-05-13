@@ -13,9 +13,9 @@ public partial class csContextBuilder<T>
     /// <exception cref="EntityDoesntExistsException"></exception>
     public void Delete(csEntityBaseModel<T>? entity)
     {
-        var entietiesToAdd = this.GetEntietiesToAddInDeleteMethod(entity);
+        var entitiesToAdd = this.GetEntitiesToAddInDeleteMethod(entity);
 
-        this.WriteRecords(entietiesToAdd);
+        this.WriteRecords(entitiesToAdd);
         this.SetSuccessResult();
     }
 
@@ -67,9 +67,9 @@ public partial class csContextBuilder<T>
     /// <exception cref="EntityDoesntExistsException"></exception>
     public async Task DeleteAsync(csEntityBaseModel<T>? entity)
     {
-        var entietiesToAdd = this.GetEntietiesToAddInDeleteMethod(entity);
+        var entitiesToAdd = this.GetEntitiesToAddInDeleteMethod(entity);
 
-        await this.WriteRecordsAsync(entietiesToAdd);
+        await this.WriteRecordsAsync(entitiesToAdd);
         this.SetSuccessResult();
     }
 

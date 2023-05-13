@@ -5,21 +5,21 @@ namespace csStorage.Builder.csContextBuilder;
 
 public partial class csContextBuilder<T>
 {
-    private void WriteRecords(IEnumerable<T> listOfEntieties)
+    private void WriteRecords(IEnumerable<T> listOfEntities)
     {
         using (var writer = new StreamWriter(StoragePath))
         using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
         {
-            csv.WriteRecords(listOfEntieties);
+            csv.WriteRecords(listOfEntities);
         }
     }
 
-    private async Task WriteRecordsAsync(IEnumerable<T> listOfEntieties)
+    private async Task WriteRecordsAsync(IEnumerable<T> listOfEntities)
     {
         using (var writer = new StreamWriter(StoragePath))
         using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
         {
-            await csv.WriteRecordsAsync(listOfEntieties);
+            await csv.WriteRecordsAsync(listOfEntities);
         }
     }
 

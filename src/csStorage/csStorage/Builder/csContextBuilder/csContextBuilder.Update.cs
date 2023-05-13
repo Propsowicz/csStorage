@@ -11,8 +11,8 @@ public partial class csContextBuilder<T>
     /// <param name="entity"></param>
     public void Update(csEntityBaseModel<T> entity)
     {
-        var entietiesToAdd = this.GetEntietiesToAddInUpdateMethod(entity);
-        this.WriteRecords(entietiesToAdd);
+        var entitiesToAdd = this.GetEntitiesToAddInUpdateMethod(entity);
+        this.WriteRecords(entitiesToAdd);
         this.SetSuccessResult();
     }
 
@@ -22,8 +22,8 @@ public partial class csContextBuilder<T>
     /// <param name="entity"></param>
     public async Task UpdateAsync(csEntityBaseModel<T> entity)
     {
-        var entietiesToAdd = this.GetEntietiesToAddInUpdateMethod(entity);
-        await this.WriteRecordsAsync(entietiesToAdd);
+        var entitiesToAdd = this.GetEntitiesToAddInUpdateMethod(entity);
+        await this.WriteRecordsAsync(entitiesToAdd);
         this.SetSuccessResult();
     }
 }

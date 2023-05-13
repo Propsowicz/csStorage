@@ -10,8 +10,8 @@ public partial class csContextBuilder<T>
     /// <param name="entity"></param>
     public void Add(csEntityBaseModel<T> entity)
     {
-        var entietiesToAdd = this.GetEntietiesToAddInAddMethod(entity);
-        this.WriteRecords(entietiesToAdd);
+        var entitiesToAdd = this.GetEntitiesToAddInAddMethod(entity);
+        this.WriteRecords(entitiesToAdd);
         this.SetSuccessResult();
     }
 
@@ -21,8 +21,8 @@ public partial class csContextBuilder<T>
     /// <param name="entity"></param>
     public async Task AddAsync(csEntityBaseModel<T> entity)
     {
-        var entietiesToAdd = this.GetEntietiesToAddInAddMethod(entity);
-        await this.WriteRecordsAsync(entietiesToAdd);
+        var entitiesToAdd = this.GetEntitiesToAddInAddMethod(entity);
+        await this.WriteRecordsAsync(entitiesToAdd);
         this.SetSuccessResult();
     }    
 }

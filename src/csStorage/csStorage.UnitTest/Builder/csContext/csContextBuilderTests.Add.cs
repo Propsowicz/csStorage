@@ -11,7 +11,7 @@ public partial class csContextBuilderTests
 {
     [TestAfter]
     [Fact]
-    public void GivenNullEntityModel_WhenAdd_ThenThrowAnException()
+    public void GivenNullEntity_WhenAdd_ThenThrowAnException()
     {
         // given
         UserEntityMock? userEntityMock = null;
@@ -29,7 +29,7 @@ public partial class csContextBuilderTests
 
     [TestAfter]
     [Theory, AutoData]
-    public void GivenEntityModelWithoutKeyAttribute_WhenAdd_ThenThrowAnException(
+    public void GivenEntityWithoutKeyAttribute_WhenAdd_ThenThrowAnException(
         string username,
         int age,
         bool isAdmin
@@ -127,5 +127,30 @@ public partial class csContextBuilderTests
 
         // then
         contextBuilder.Result.Should().Be(ContextBuilderResult.Success);
+    }
+
+    [TestAfter]
+    [Theory, AutoData]
+    public void GivenEntityWithCsAutoKeyAttributeAndStringTypeCsAutoKey_WhenAdd_ThenThrowAnException(
+        string username,
+        int age
+    )
+    {
+        // given
+        var userEntityMock = new UserEntityMockAutoKeyString
+        {
+            UserName = username,
+            Age = age
+        };
+        var contextBuilder = new csContextBuilder<UserEntityMockAutoKeyString>();
+
+        // when
+        Action act = () =>
+        {
+            contextBuilder.Add(userEntityMock);
+        };
+
+        // then
+        act.Should().Throw<CsAutoKeyNeedToBeIntOrGuidTypeException>();
     }
 }
