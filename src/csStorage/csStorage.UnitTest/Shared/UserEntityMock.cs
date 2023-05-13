@@ -1,7 +1,7 @@
 ﻿using csStorage.Base.csEntityBaseModel;
 using csStorage.Shared;
 
-namespace csStorage.IntegrationTest.Shared
+namespace csStorage.UnitTest.Shared
 {
     public class UserEntityMock : csEntityBaseModel<UserEntityMock>
     {

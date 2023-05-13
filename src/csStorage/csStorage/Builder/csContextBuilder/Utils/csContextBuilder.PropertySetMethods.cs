@@ -87,18 +87,18 @@ public partial class csContextBuilder<T>
         this.SetEntity(entity);
     }
 
-    private void SetDirectoryPath()
+    protected virtual void SetDirectoryPath()
     {
-        this.DirectoryPath = AppDomain.CurrentDomain.BaseDirectory + $"\\csStorage";
-
-        if (!Directory.Exists(this.DirectoryPath))
-        {
-            Directory.CreateDirectory(this.DirectoryPath);
-        }
+        this.DirectoryPath = AppDomain.CurrentDomain.BaseDirectory + $"\\csStorage";        
     }
 
     private void SetStoragePath()
     {
+        if (!Directory.Exists(this.DirectoryPath))
+        {
+            Directory.CreateDirectory(this.DirectoryPath);
+        }
+
         this.StoragePath = this.DirectoryPath + $"\\{typeof(T).Name}.csv";
     }
 

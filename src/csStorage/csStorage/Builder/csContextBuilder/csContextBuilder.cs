@@ -13,9 +13,9 @@ public partial class csContextBuilder<T>
 
     private Type AutoKeyType { get; set; } = null!;
 
-    public string StoragePath { get; set; } = default!;
+    public string StoragePath { get; private set; } = default!;
 
-    public string DirectoryPath { get; set; } = default!;
+    public string DirectoryPath { get; protected set; } = default!;
 
     public string Result { get; private set; } = ResultStatus.Failure;
 
