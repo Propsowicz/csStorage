@@ -1,11 +1,10 @@
 ﻿using AutoFixture.Xunit2;
 using csStorage.Builder.csContextBuilder;
 using csStorage.Exceptions;
-using csStorage.IntegrationTest.Shared;
 using csStorage.UnitTest.Shared;
 using FluentAssertions;
 
-namespace csStorage.IntegrationTest.Builder.csContext;
+namespace csStorage.UnitTest.Builder.csContext;
 
 public partial class csContextBuilderTests
 {
