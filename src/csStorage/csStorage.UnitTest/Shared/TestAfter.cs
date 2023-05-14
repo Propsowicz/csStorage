@@ -10,11 +10,14 @@ public class TestAfter : BeforeAfterTestAttribute
     public override void After(MethodInfo methodUnderTest)
     {
         var directoryPath = new csContextBuilder<UserEntityMock>().DirectoryPath;
-        var inheritedDirectoryPath = new InheritedCsContextBuilder<UserEntityMock>().DirectoryPath;
-
-        if (Directory.Exists(directoryPath) && Directory.Exists(inheritedDirectoryPath))
+        if (Directory.Exists(directoryPath))
         {
             Directory.Delete(directoryPath, true);
+        }
+
+        var inheritedDirectoryPath = new InheritedCsContextBuilder<UserEntityMock>().DirectoryPath;
+        if (Directory.Exists(inheritedDirectoryPath))
+        {
             Directory.Delete(inheritedDirectoryPath, true);
         }
     }
