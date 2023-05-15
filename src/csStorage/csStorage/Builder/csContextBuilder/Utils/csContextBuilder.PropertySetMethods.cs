@@ -13,7 +13,24 @@ public partial class csContextBuilder<T>
     }
 
     private void SetCsKey(csEntityBaseModel<T> entity)
-    {        
+    {       
+        if (entity.csKey != null && !string.IsNullOrEmpty(entity.csKey)) 
+        {
+            this.csKey = entity.csKey;
+        }
+        else
+        {
+            this.SetCsKeyForNewEntity(entity);
+        }        
+
+        if (string.IsNullOrEmpty(this.csKey))
+        {
+            throw new CsKeyAttributeHasNotBeenSetException();
+        }
+    }
+
+    private void SetCsKeyForNewEntity(csEntityBaseModel<T> entity)
+    {
         foreach (var propertyInfo in entity.GetType().GetProperties())
         {
             foreach (var obj in propertyInfo.GetCustomAttributes(true))
@@ -37,22 +54,17 @@ public partial class csContextBuilder<T>
                     var propertyValue = propertyInfo?.GetValue(entity);
 
                     if ((propertyValue!.GetType() == typeof(int) && (int)propertyValue == 0) ||
-                        ((propertyValue!.GetType() == typeof(Guid) && (Guid)propertyValue! == Guid.Empty))    
+                        ((propertyValue!.GetType() == typeof(Guid) && (Guid)propertyValue! == Guid.Empty))
                     )
                     {
                         this.SetCsAutoKeyProperties(nameof(csAutoKey), propertyType);
                     }
                     else
-                    {                        
-                        this.SetCsAutoKeyProperties(propertyValue.ToString()!, propertyType);                        
+                    {
+                        this.SetCsAutoKeyProperties(propertyValue.ToString()!, propertyType);
                     }
                 }
             }
-        }        
-
-        if (string.IsNullOrEmpty(this.csKey))
-        {
-            throw new CsKeyAttributeHasNotBeenSetException();
         }
     }
 
