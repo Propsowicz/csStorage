@@ -386,4 +386,74 @@ public partial class csContextBuilderTests
         oldNumberOfEntities.Should().Be(2);
         newNumberOfEntities.Should().Be(1);
     }
+
+    [TestAfter]
+    [Theory, AutoData]
+    public void GivenEntityWithCsAutoKeyToDelete_WhenDelete_ThenDeleteOneRecord(
+        string username,
+        int age,
+        string username2,
+        int age2
+    )
+    {
+        // given
+        var userEntityMock = new UserEntityMockAutoKeyInt
+        {
+            UserName = username,
+            Age = age
+        };
+        var userEntityMock2 = new UserEntityMockAutoKeyInt
+        {
+            UserName = username2,
+            Age = age2
+        };
+        var contextBuilder = new csContextBuilder<UserEntityMockAutoKeyInt>();
+        contextBuilder.Add(userEntityMock);
+        contextBuilder.Add(userEntityMock2);
+        var oldNumberOfEntities = contextBuilder.Get().Count();
+
+        // when
+        contextBuilder.Delete(userEntityMock);
+
+        // then
+        var newNumberOfEntities = contextBuilder.Get().Count();
+        oldNumberOfEntities.Should().Be(2);
+        newNumberOfEntities.Should().Be(1);
+    }
+
+    [TestAfter]
+    [Theory, AutoData]
+    public void GivenAutoKeyToDelete_WhenDelete_ThenDeleteOneRecord(
+        string username,
+        int age,
+        string username2,
+        int age2
+    )
+    {
+        // given
+        var userEntityMock = new UserEntityMockAutoKeyInt
+        {
+            UserName = username,
+            Age = age
+        };
+        var userEntityMock2 = new UserEntityMockAutoKeyInt
+        {
+            UserName = username2,
+            Age = age2
+        };
+        var contextBuilder = new csContextBuilder<UserEntityMockAutoKeyInt>();
+        contextBuilder.Add(userEntityMock);
+        var userEntityMockId = Convert.ToInt32(contextBuilder.csKey);
+
+        contextBuilder.Add(userEntityMock2);
+        var oldNumberOfEntities = contextBuilder.Get().Count();
+
+        // when
+        contextBuilder.Delete(userEntityMockId);
+
+        // then
+        var newNumberOfEntities = contextBuilder.Get().Count();
+        oldNumberOfEntities.Should().Be(2);
+        newNumberOfEntities.Should().Be(1);
+    }
 }

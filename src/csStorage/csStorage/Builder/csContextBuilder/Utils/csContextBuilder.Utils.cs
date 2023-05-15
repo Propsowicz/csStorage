@@ -73,8 +73,7 @@ public partial class csContextBuilder<T>
 
     private List<T> GetEntitiesToAddInDeleteMethod(csEntityBaseModel<T>? entity)
     {
-        this.SetContextBuilderProperties(entity);
-
+        this.SetContextBuilderProperties(entity);        
         var entitiesToAdd = new List<T>();
         if (File.Exists(this.StoragePath))
         {
@@ -99,7 +98,7 @@ public partial class csContextBuilder<T>
         int firstAvailableKey = 0;
 
         int i = 0;
-        while (i < sortedListOfKeys.Count)
+        while (i < sortedListOfKeys?.Count)
         {
             if (i + 1 == sortedListOfKeys.Count)
             {

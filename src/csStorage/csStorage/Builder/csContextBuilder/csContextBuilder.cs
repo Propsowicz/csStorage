@@ -5,13 +5,13 @@ namespace csStorage.Builder.csContextBuilder;
 public partial class csContextBuilder<T>
 {
 #region Properties    
-    private string csKey { get; set; } = default!;
-
-    private object Entity { get; set; } = default!;
-
     private bool IsAutoKey { get; set; } = false;
 
     private Type AutoKeyType { get; set; } = null!;
+
+    private object Entity { get; set; } = default!;
+
+    public string csKey { get; private set; } = default!;
 
     public string StoragePath { get; private set; } = default!;
 
