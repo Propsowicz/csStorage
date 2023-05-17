@@ -3,54 +3,109 @@ csStorage is a data storage system that allows the user to easily execute CRUD o
 The system maps class entieties to csv files using unique key for each record. 
 
 ## Getting started
-csStorage is a lightweight package that is ready to use just after adding the nuget to your solution.
+csStorage is a lightweight package that is ready to use as soon as you add the nuget to your solution.
 
-First step is to create entity model that inherits from csEntityBaseModel<T> and set [csKey] attribute:
+### Entity
+The first step in using the package is to create an entity that inherits from csEntityBaseModel<T> and choose which class property is the key that will be used to query data later.
+To do this, set the ```[csKey]``` or ```[csAutoKey]``` attribute to one of the properties.    
+    
+- ```csKey``` is an attribute that can be used with any type of property, and the selected property must exist when creating the record.
+- ```csAutoKey``` is an attribute that can only be used with int or Guid type properties and can be generated automatically when creating a record.
 ```
-public class PersonEntity : csEntityBaseModel<PersonEntity>
+    public class Cat : csEntityBaseModel<Cat>
     {
         [csKey]
-        public Guid Id { get; set; }
+        public string? Name { get; set; }    
 
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
-
-        public DateTime BirthDate { get; set; }
-
-        public Address Address { get; set; }
+        public int Age { get; set; }
     }
 
-    public class Address
+    public class Dog : csEntityBaseModel<Dog>
     {
-        public string City { get; set; }
+        [csAutoKey]
+        public int Id { get; set; }    
+    
+        public string? Name { get; set; }    
 
-        public string Country { get; set; }
+        public int Age { get; set; }
     }
 ```
 
-The second step is to initialize a new csContextBuilder<T> class instance:
+### Builder
+To execute CRUD operations using csStorage You must initialize a new csContextBuilder<T> class instance.
+    
 ```
-    var contextBuilder = new csContextBuilder<PersonEntity>();
+    var contextCatBuilder = new csContextBuilder<Cat>();
 ```
 
-Then You can perform CRUD operations using csContextBuilder<T> methods:
+When You need to change the path of csv file storage You can simply override a ```SetDirectoryPath()``` method.
+   
 ```
-    var person = new PersonEntity {
-      ///
+    public class CsContextDogBuilder<Dog> : csContextBuilder<Dog>
+    {              
+        protected override void SetDirectoryPath()
+        {
+            var appDomainDir = AppDomain.CurrentDomain.BaseDirectory;
+
+            this.DirectoryPath = Path.GetFullPath(Path.Combine(appDomainDir, @"..\..\..\csvFiles\"));
+        }
+    }    
+    var contextDogBuilder = new CsContextDogBuilder<Dog>();
+```    
+
+### Data operations
+The package allows You to execute basic operations on data sets.
+
+    
+#### Create
+To create a new record in csv file You just need to create a new instance of entity and use ```Add()``` or ```AddAsync()``` method. 
+    
+```
+    var catEntity = new Cat {
+        Name = "Ding",
+        Age = 5
+    }    
+    contextCatBuilder.Add(catEntity);       
+    
+    var dogEntity = new Dog {
+        Name = "Dong",
+        Age = 7
     }
-    var result = contextBuilder.Add(person);
-    ///
-    var personRecord = contextBuilder.Get(person.Id);
-    ///
-    var allPersonRecords = contextBuilder.Get().ToList();
-    ///
-    person.LastName = "Smith";
-    var result = contextBuilder.Update(person);
-    ///
-    contextBuilder.Delete(person);
+    await contextDogBuilder.AddAsync(dogEntity);    
+    var dogEntityId = contextDogBuilder.csKey;
+```    
+
+#### Get
+Quering the data can be done using ```Get()``` or ```GetAsync()``` method.
+To query the data you can choose between two overload types: 
+- the no parameter one - query the whole data collection,
+- the key parameter one - query one record using unique key (type of int, string, Guid or DateTime).
+    
+```
+    var catsOlderThanFour = contextCatBuilder.Get().Where(x => x.Age > 4).ToList();
+   
+    var myDog = await contextDogBuilder.GetAsync(dogEntityId);     
+```
+    
+#### Update 
+To update record You need to query entity what needs to be updated, modify it, and use method ```Update()``` or ```UpdateAsync()``` to save changes. 
+    
+```
+    var myDog = await contextDogBuilder.GetAsync(dogEntityId); 
+    myDog.Name = "Dong Dung";
+    
+    await contextDogBuilder.UpdateAsync(myDog);
 ```
 
+#### Delete
+To Delete You only need to call ```Delete()``` or ```DeleteAsync()``` using csKey as a parameter.
+ 
+```
+    contextCatBuilder.Delete(catEntity.Name);     
+
+    await contextDogBuilder.DeleteAsync(dogEntityId);
+```
+    
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
