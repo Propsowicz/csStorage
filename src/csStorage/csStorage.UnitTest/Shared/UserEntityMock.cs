@@ -1,7 +1,7 @@
 ﻿using csStorage.Base.csEntityBaseModel;
 using csStorage.Shared;
 
-namespace csStorage.IntegrationTest.Shared
+namespace csStorage.UnitTest.Shared
 {
     public class UserEntityMock : csEntityBaseModel<UserEntityMock>
     {
@@ -20,5 +20,15 @@ namespace csStorage.IntegrationTest.Shared
         public int Age { get; set; }
 
         public bool IsAdmin { get; set; }
+    }
+
+    public class UserEntityMockAutoKeyString : csEntityBaseModel<UserEntityMockAutoKeyString>
+    {
+        [csAutoKey]
+        public string? Id { get; set; }
+
+        public string? UserName { get; set; }
+
+        public int Age { get; set; }
     }
 }

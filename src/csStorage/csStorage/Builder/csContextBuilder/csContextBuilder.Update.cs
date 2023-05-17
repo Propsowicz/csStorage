@@ -9,34 +9,21 @@ public partial class csContextBuilder<T>
     /// Update an entity.
     /// </summary>
     /// <param name="entity"></param>
-    /// <returns>Updated entity</returns>
-    /// <exception cref="EntityDoesntExistsException"></exception>
-    public T Update(csEntityBaseModel<T> entity)
+    public void Update(csEntityBaseModel<T> entity)
     {
-        this.IsEntityValid(entity);
-        var entietiesToAdd = new List<T>();
-        this.SetCsKey(entity);
-        this.SetEntity(entity);
+        var entitiesToAdd = this.GetEntitiesToAddInUpdateMethod(entity);
+        this.WriteRecords(entitiesToAdd);
+        this.SetSuccessResult();
+    }
 
-        if (File.Exists(StoragePath))
-        {
-            var allRecords = this.GetRecords();
-            this.DoesKeyExists();            
-
-            var recordsWithoutUpdatedEntity = this.ConvertGenericListToEntityBaseModelList(allRecords).Where(x => x.csKey != this.csKey);
-            var genericRecordsWithoutUpdatedEntity = this.ConvertEntityBaseModelListToGenericList(recordsWithoutUpdatedEntity);
-
-            entietiesToAdd.AddRange(genericRecordsWithoutUpdatedEntity);
-                        
-            entietiesToAdd.Add(ConvertObjectToGenericT(this.Entity));            
-        }
-        else
-        {
-            throw new EntityDoesntExistsException();
-        }
-
-        this.WriteRecords(entietiesToAdd);
-
-        return ConvertObjectToGenericT(this.Entity);
-    }      
+    /// <summary>
+    /// Asynchronously update an entity.
+    /// </summary>
+    /// <param name="entity"></param>
+    public async Task UpdateAsync(csEntityBaseModel<T> entity)
+    {
+        var entitiesToAdd = this.GetEntitiesToAddInUpdateMethod(entity);
+        await this.WriteRecordsAsync(entitiesToAdd);
+        this.SetSuccessResult();
+    }
 }

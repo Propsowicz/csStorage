@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>csStorage</PackageId>
     <Title>csStorage</Title>
-    <Version>0.1.3</Version>
+    <Version>0.1.4</Version>
     <Authors>Tomasz Tomasik</Authors>
     <Company>Tomasz Tomasik</Company>
     <Description>csStorage is a data storage system that allows the user to easily execute CRUD operations on csv files.</Description>
@@ -17,6 +17,9 @@
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/Propsowicz/csStorage</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReleaseNotes>- added async methods
+- added auto generated csKey
+- added ability to set storage path</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

@@ -8,24 +8,21 @@ public partial class csContextBuilder<T>
     /// Add new entity to csv file. New entity need to have unique key.
     /// </summary>
     /// <param name="entity"></param>
-    /// <returns>Created entity.</returns>
-    public T Add(csEntityBaseModel<T> entity)
+    public void Add(csEntityBaseModel<T> entity)
     {
-        this.IsEntityValid(entity);
-        var entietiesToAdd = new List<T>();
-        this.SetCsKey(entity);
-        this.SetEntity(entity);
-        
-        if (File.Exists(StoragePath))
-        {
-            var allRecords = this.GetRecords();
-            this.IsKeyUnique();
-            entietiesToAdd.AddRange(allRecords);            
-        }                            
-        entietiesToAdd.Add(ConvertObjectToGenericT(this.Entity));
+        var entitiesToAdd = this.GetEntitiesToAddInAddMethod(entity);
+        this.WriteRecords(entitiesToAdd);
+        this.SetSuccessResult();
+    }
 
-        this.WriteRecords(entietiesToAdd);
-
-        return ConvertObjectToGenericT(this.Entity);
-    }      
+    /// <summary>
+    /// Asynchronously add new entity to csv file. New entity need to have unique key.
+    /// </summary>
+    /// <param name="entity"></param>
+    public async Task AddAsync(csEntityBaseModel<T> entity)
+    {
+        var entitiesToAdd = this.GetEntitiesToAddInAddMethod(entity);
+        await this.WriteRecordsAsync(entitiesToAdd);
+        this.SetSuccessResult();
+    }    
 }
