@@ -3,15 +3,14 @@ csStorage is a data storage system that allows the user to easily execute CRUD o
 The system maps class entieties to csv files using unique key for each record. 
 
 ## Getting started
-csStorage is a lightweight package that is ready to use just after adding the nuget to your solution.
+csStorage is a lightweight package that is ready to use as soon as you add the nuget to your solution.
 
 ### Entity
-The first step to use the package is need to create entity that inherits from csEntityBaseModel<T> and select what class property is a key which will be later used to query the data.
-To do that, You need to set ```[csKey]``` or ```[csAutoKey]``` attribute to one of properties. 
+The first step in using the package is to create an entity that inherits from csEntityBaseModel<T> and choose which class property is the key that will be used to query data later.
+To do this, set the ```[csKey]``` or ```[csAutoKey]``` attribute to one of the properties.    
     
-- ```csKey``` is attribute which can be used with any type of property, and the choosen property need to exists when creating a record.
-- ```csAutoKey``` is attribute which can be used only with int or Guid types of property and can be automaticly generated during creating a record.
-
+- ```csKey``` is an attribute that can be used with any type of property, and the selected property must exist when creating the record.
+- ```csAutoKey``` is an attribute that can only be used with int or Guid type properties and can be generated automatically when creating a record.
 ```
     public class Cat : csEntityBaseModel<Cat>
     {
@@ -33,13 +32,13 @@ To do that, You need to set ```[csKey]``` or ```[csAutoKey]``` attribute to one 
 ```
 
 ### Builder
-To execute CRUD operations using csStorage You need to initialize a new csContextBuilder<T> class instance.
+To execute CRUD operations using csStorage You must initialize a new csContextBuilder<T> class instance.
     
 ```
     var contextCatBuilder = new csContextBuilder<Cat>();
 ```
 
-When You need to change the path of csv file storage You can just override a ```SetDirectoryPath()``` method.
+When You need to change the path of csv file storage You can simply override a ```SetDirectoryPath()``` method.
    
 ```
     public class CsContextDogBuilder<Dog> : csContextBuilder<Dog>
@@ -79,7 +78,9 @@ To create a new record in csv file You just need to create a new instance of ent
 
 #### Get
 Quering the data can be done using ```Get()``` or ```GetAsync``` method.
-To query the data you can choose between two methods: query the whole collection and manipulate it or query one record using unique key.
+To query the data you can choose between two overload types: 
+- the no parameter one query the whole data collection,
+- the key parameter one query one record using unique key.
     
 ```
     var catsOlderThanFour = contextCatBuilder.Get().Where(x => x.Age > 4).ToList();
