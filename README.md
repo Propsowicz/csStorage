@@ -67,18 +67,45 @@ To create a new record in csv file You just need to create a new instance of ent
         Name = "Ding",
         Age = 5
     }    
-    await contextCatBuilder.AddAsync(catEntity);
-    
-    ///
+    contextCatBuilder.Add(catEntity);       
     
     var dogEntity = new Dog {
         Name = "Dong",
         Age = 7
     }
     await contextDogBuilder.AddAsync(dogEntity);    
+    var dogEntityId = contextDogBuilder.csKey;
 ```    
 
+#### Get
+Quering the data can be done using ```Get()``` or ```GetAsync``` method.
+To query the data you can choose between two methods: query the whole collection and manipulate it or query one record using unique key.
+    
+```
+    var catsOlderThanFour = contextCatBuilder.Get().Where(x => x.Age > 4).ToList();
+   
+    var myDog = await contextDogBuilder.GetAsync(dogEntityId);     
+```
+    
+#### Update 
+To update record You need to query entity what needs to be updated, modify it, and use method ```Update()``` or ```UpdateAsync()```. 
+    
+```
+    var myDog = await contextDogBuilder.GetAsync(dogEntityId); 
+    myDog.Name = "Dong Dung";
+    
+    await contextDogBuilder.UpdateAsync(myDog);
+```
 
+#### Delete
+To Delete You only need to call ```Delete()``` or ```DeleteAsync()``` using csKey as a parameter.
+ 
+```
+    contextCatBuilder.Delete(catEntity.Name);     
+
+    await contextDogBuilder.DeleteAsync(dogEntityId);
+```
+    
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
