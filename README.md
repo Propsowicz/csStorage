@@ -49,8 +49,7 @@ When You need to change the path of csv file storage You can simply override a `
 
             this.DirectoryPath = Path.GetFullPath(Path.Combine(appDomainDir, @"..\..\..\csvFiles\"));
         }
-    }
-    ///
+    }    
     var contextDogBuilder = new CsContextDogBuilder<Dog>();
 ```    
 
@@ -77,10 +76,10 @@ To create a new record in csv file You just need to create a new instance of ent
 ```    
 
 #### Get
-Quering the data can be done using ```Get()``` or ```GetAsync``` method.
+Quering the data can be done using ```Get()``` or ```GetAsync()``` method.
 To query the data you can choose between two overload types: 
-- the no parameter one query the whole data collection,
-- the key parameter one query one record using unique key.
+- the no parameter one - query the whole data collection,
+- the key parameter one - query one record using unique key (type of int, string, Guid or DateTime).
     
 ```
     var catsOlderThanFour = contextCatBuilder.Get().Where(x => x.Age > 4).ToList();
@@ -89,7 +88,7 @@ To query the data you can choose between two overload types:
 ```
     
 #### Update 
-To update record You need to query entity what needs to be updated, modify it, and use method ```Update()``` or ```UpdateAsync()```. 
+To update record You need to query entity what needs to be updated, modify it, and use method ```Update()``` or ```UpdateAsync()``` to save changes. 
     
 ```
     var myDog = await contextDogBuilder.GetAsync(dogEntityId); 
