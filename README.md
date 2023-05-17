@@ -7,13 +7,11 @@ csStorage is a lightweight package that is ready to use just after adding the nu
 
 ### Entity
 The first step to use the package is need to create entity that inherits from csEntityBaseModel<T> and select what class property is a key which will be later used to query the data.
-To do that, You need to set ```csKey``` or ```csAutoKey``` attribute to one of properties. 
+To do that, You need to set ```[csKey]``` or ```[csAutoKey]``` attribute to one of properties. 
     
 - ```csKey``` is attribute which can be used with any type of property, and the choosen property need to exists when creating a record.
 - ```csAutoKey``` is attribute which can be used only with int or Guid types of property and can be automaticly generated during creating a record.
 
-
-First step is to create entity model that inherits from csEntityBaseModel<T> and set [csKey] attribute:
 ```
     public class Cat : csEntityBaseModel<Cat>
     {
@@ -34,27 +32,52 @@ First step is to create entity model that inherits from csEntityBaseModel<T> and
     }
 ```
 
-The second step is to initialize a new csContextBuilder<T> class instance:
+### Builder
+To execute CRUD operations using csStorage You need to initialize a new csContextBuilder<T> class instance.
+    
 ```
-    var contextBuilder = new csContextBuilder<PersonEntity>();
+    var contextCatBuilder = new csContextBuilder<Cat>();
 ```
 
-Then You can perform CRUD operations using csContextBuilder<T> methods:
+When You need to change the path of csv file storage You can just override a ```SetDirectoryPath()``` method.
+   
 ```
-    var person = new PersonEntity {
-      ///
+    public class CsContextDogBuilder<Dog> : csContextBuilder<Dog>
+    {              
+        protected override void SetDirectoryPath()
+        {
+            var appDomainDir = AppDomain.CurrentDomain.BaseDirectory;
+
+            this.DirectoryPath = Path.GetFullPath(Path.Combine(appDomainDir, @"..\..\..\csvFiles\"));
+        }
     }
-    var result = contextBuilder.Add(person);
     ///
-    var personRecord = contextBuilder.Get(person.Id);
-    ///
-    var allPersonRecords = contextBuilder.Get().ToList();
-    ///
-    person.LastName = "Smith";
-    var result = contextBuilder.Update(person);
-    ///
-    contextBuilder.Delete(person);
+    var contextDogBuilder = new CsContextDogBuilder<Dog>();
+```    
+
+### Data operations
+The package allows You to execute basic operations on data sets.
+
+    
+#### Create
+To create a new record in csv file You just need to create a new instance of entity and use ```Add()``` or ```AddAsync()``` method. 
+    
 ```
+    var catEntity = new Cat {
+        Name = "Ding",
+        Age = 5
+    }    
+    await contextCatBuilder.AddAsync(catEntity);
+    
+    ///
+    
+    var dogEntity = new Dog {
+        Name = "Dong",
+        Age = 7
+    }
+    await contextDogBuilder.AddAsync(dogEntity);    
+```    
+
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
